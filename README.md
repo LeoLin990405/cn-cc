@@ -14,6 +14,7 @@ Route tasks from Claude Code to 6 Chinese AI model backends. Each backend runs a
 | **GLM** | glm-4.7 | Reasoning / Chinese understanding | `/cn:glm` |
 | **StepFun** | step-3.5-flash | Math / logic | `/cn:stepfun` |
 | **MiniMax** | MiniMax-M2.7-highspeed | High-speed inference | `/cn:minimax` |
+| **MiMo** | mimo-v2-pro | Xiaomi flagship reasoning, 1M context | `/cn:mimo` |
 
 ## Install
 
@@ -59,6 +60,7 @@ CN Models Setup — 6/6 available
   ✓ glm      GLM (glm-4.7)                       2.1.98 (Claude Code)
   ✓ stepfun  StepFun (step-3.5-flash)            2.1.98 (Claude Code)
   ✓ minimax  MiniMax (M2.7-highspeed)            2.1.98 (Claude Code)
+  ✓ mimo     MiMo (mimo-v2-pro)                  2.1.98 (Claude Code)
 ```
 
 ### Smart routing
@@ -90,6 +92,7 @@ The `cn-dispatch` agent reads task signals and picks the best model:
 /cn:doubao <prompt>    # General coding
 /cn:stepfun <prompt>   # Math / logic
 /cn:minimax <prompt>   # High-speed
+/cn:mimo <prompt>      # Xiaomi MiMo, 1M ctx
 ```
 
 ### Auto-dispatch

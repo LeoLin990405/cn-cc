@@ -14,6 +14,7 @@ const MODELS = {
   glm:     { bin: "cc-glm",     label: "GLM (glm-4.7)",                 desc: "推理 / 中文理解" },
   stepfun: { bin: "cc-stepfun", label: "StepFun (step-3.5-flash)",      desc: "数学 / 逻辑" },
   minimax: { bin: "cc-minimax", label: "MiniMax (M2.7-highspeed)",      desc: "高速推理" },
+  mimo:    { bin: "cc-mimo",    label: "MiMo (mimo-v2-pro)",            desc: "小米旗舰推理 1M ctx" },
 };
 
 const MODEL_NAMES = Object.keys(MODELS);
