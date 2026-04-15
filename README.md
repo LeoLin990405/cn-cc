@@ -1,20 +1,20 @@
 # CN-CC: Chinese Model Backends for Claude Code
 
-Route tasks from Claude Code to 6 Chinese AI model backends. Each backend runs as an isolated Claude Code instance with its own API provider.
+Route tasks from Claude Code to **7 Chinese AI model backends**. Each backend runs as an isolated Claude Code instance with its own API provider.
 
 > Inspired by [openai/codex-plugin-cc](https://github.com/openai/codex-plugin-cc) — the plugin architecture that made multi-model delegation in Claude Code possible. Thank you, OpenAI.
 
 ## Models
 
-| Model | Backend | Strength | Command |
+| Model | Backend (default tier) | Strength | Command |
 |-------|---------|----------|---------|
-| **Doubao** | doubao-seed-code-pro | General Chinese coding (default) | `/cn:doubao` |
-| **Qwen** | qwen3.5-plus | SQL / Alibaba ecosystem | `/cn:qwen` |
-| **Kimi** | kimi-k2.5 | Long context (128K) | `/cn:kimi` |
-| **GLM** | glm-4.7 | Reasoning / Chinese understanding | `/cn:glm` |
-| **StepFun** | step-3.5-flash | Math / logic | `/cn:stepfun` |
-| **MiniMax** | MiniMax-M2.7-highspeed | High-speed inference | `/cn:minimax` |
-| **MiMo** | mimo-v2-pro | Xiaomi flagship reasoning, 1M context | `/cn:mimo` |
+| **Doubao** | ark-code-latest (auto-route to doubao-seed-2.0-pro) | General Chinese coding, **256K ctx / 128K out** | `/cn:doubao` |
+| **Qwen** | qwen3-coder-plus | SQL / Alibaba ecosystem | `/cn:qwen` |
+| **Kimi** | kimi-for-coding (K2.6) | Long context (**256K**), 64K out | `/cn:kimi` |
+| **GLM** | glm-4.7 (opus → glm-5.1) | Reasoning / Chinese understanding, web_search | `/cn:glm` |
+| **StepFun** | step-3.5-flash-2603 (sonnet+) | Math / logic, vision, **64K out** | `/cn:stepfun` |
+| **MiniMax** | MiniMax-M2.7-highspeed | Native reasoning, parallel tools, **128K out** | `/cn:minimax` |
+| **MiMo** | mimo-v2-pro (Token Plan SGP) | Xiaomi flagship, **1M context**, omni-vision | `/cn:mimo` |
 
 ## Install
 
@@ -52,15 +52,15 @@ Or add to `~/.claude/settings.json`:
 ```
 
 ```
-CN Models Setup — 6/6 available
+CN Models Setup — 7/7 available
 
-  ✓ doubao   Doubao (doubao-seed-code-pro)       2.1.98 (Claude Code)
-  ✓ qwen     Qwen (qwen3.5-plus)                 2.1.98 (Claude Code)
-  ✓ kimi     Kimi (kimi-k2.5)                    2.1.98 (Claude Code)
-  ✓ glm      GLM (glm-4.7)                       2.1.98 (Claude Code)
-  ✓ stepfun  StepFun (step-3.5-flash)            2.1.98 (Claude Code)
-  ✓ minimax  MiniMax (M2.7-highspeed)            2.1.98 (Claude Code)
-  ✓ mimo     MiMo (mimo-v2-pro)                  2.1.98 (Claude Code)
+  ✓ doubao   Doubao (ark-code-latest)            2.1.109 (Claude Code)
+  ✓ qwen     Qwen (qwen3-coder-plus)             2.1.109 (Claude Code)
+  ✓ kimi     Kimi (kimi-for-coding K2.6)         2.1.107 (Claude Code)
+  ✓ glm      GLM (glm-4.7)                       2.1.108 (Claude Code)
+  ✓ stepfun  StepFun (step-3.5-flash-2603)       2.1.109 (Claude Code)
+  ✓ minimax  MiniMax (M2.7-highspeed)            2.1.109 (Claude Code)
+  ✓ mimo     MiMo (mimo-v2-pro)                  2.1.109 (Claude Code)
 ```
 
 ### Smart routing
@@ -82,6 +82,7 @@ The `cn-dispatch` agent reads task signals and picks the best model:
 | Deep reasoning / Chinese NLU | GLM | Strong Chinese reasoning |
 | Quick / lightweight tasks | MiniMax | Lowest latency |
 | General Chinese coding | Doubao | Best all-round (default) |
+| Ultra-long context (>200K) / vision | MiMo | 1M ctx, omni multimodal |
 
 ### Direct commands
 
@@ -151,6 +152,7 @@ export KIMI_API_KEY="..."       # Kimi (Moonshot)
 export GLM_API_KEY="..."        # GLM (Zhipu)
 export STEPFUN_API_KEY="..."    # StepFun
 export MINIMAX_API_KEY="..."    # MiniMax
+export MIMO_API_KEY="tp-..."    # MiMo Token Plan (SGP region, key starts with tp-)
 ```
 
 ## Plugin Structure
@@ -168,7 +170,8 @@ plugins/cn/
 │   ├── kimi.md                 # /cn:kimi
 │   ├── glm.md                  # /cn:glm
 │   ├── stepfun.md              # /cn:stepfun
-│   └── minimax.md              # /cn:minimax
+│   ├── minimax.md              # /cn:minimax
+│   └── mimo.md                 # /cn:mimo
 ├── skills/
 │   ├── cn-routing/SKILL.md     # Model selection decision matrix
 │   └── cn-result-handling/SKILL.md  # Output formatting rules
