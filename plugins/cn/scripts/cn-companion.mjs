@@ -8,13 +8,13 @@ import os from "node:os";
 // ── Model registry ──────────────────────────────────────────────────────────
 
 const MODELS = {
-  doubao:  { bin: "cc-doubao",  label: "Doubao (doubao-seed-code-pro)",  desc: "通用中文编码" },
-  qwen:    { bin: "cc-qwen",    label: "Qwen (qwen3.5-plus)",           desc: "SQL / 阿里生态" },
-  kimi:    { bin: "cc-kimi",    label: "Kimi (kimi-k2.5)",              desc: "长文本 128K" },
-  glm:     { bin: "cc-glm",     label: "GLM (glm-4.7)",                 desc: "推理 / 中文理解" },
-  stepfun: { bin: "cc-stepfun", label: "StepFun (step-3.5-flash)",      desc: "数学 / 逻辑" },
-  minimax: { bin: "cc-minimax", label: "MiniMax (M2.7-highspeed)",      desc: "高速推理" },
-  mimo:    { bin: "cc-mimo",    label: "MiMo (mimo-v2-pro)",            desc: "小米旗舰推理 1M ctx" },
+  doubao:  { bin: "cc-doubao",  label: "Doubao (ark-code-latest)",      desc: "通用中文编码 256K/128K" },
+  qwen:    { bin: "cc-qwen",    label: "Qwen (qwen3-coder-plus)",       desc: "SQL / 阿里生态" },
+  kimi:    { bin: "cc-kimi",    label: "Kimi (kimi-for-coding K2.6)",   desc: "长文本 256K / 64K out" },
+  glm:     { bin: "cc-glm",     label: "GLM (glm-4.7 / opus→glm-5.1)",  desc: "推理 / 中文理解 / web_search" },
+  stepfun: { bin: "cc-stepfun", label: "StepFun (step-3.5-flash-2603)", desc: "数学 / 逻辑 / vision" },
+  minimax: { bin: "cc-minimax", label: "MiniMax (M2.7-highspeed)",      desc: "原生 reasoning / parallel tools / 128K out" },
+  mimo:    { bin: "cc-mimo",    label: "MiMo (mimo-v2-pro)",            desc: "小米旗舰 1M ctx + omni vision" },
 };
 
 const MODEL_NAMES = Object.keys(MODELS);
